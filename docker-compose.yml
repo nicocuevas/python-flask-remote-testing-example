@@ -1,0 +1,33 @@
+version: '3'
+services:
+  api-server:
+    container_name: api-server
+    build:
+      context: ./
+      dockerfile: ./docker_files/api/Dockerfile
+    environment:
+      - EMU_ANDROID=emulator-5554
+      - ANDROID_DEVICE=LMX210c7800d73
+      - APK_DIR=/home/ncuevas/Desktop/projects/technical-challenge/apk
+    command: sh -c "python api/main.py"
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    network_mode: "host"
+    restart: always
+    # depends_on:
+    #   - appium-server
+
+  # appium-server:
+  #   container_name: appium-server
+  #   build:
+  #     context: ./
+  #     dockerfile: ./docker_files/appium/Dockerfile
+  #   command: sh -c "appium"
+  #   volumes:
+  #     - .:/code
+  #   ports:
+  #     - "4723:4723"
+  #   restart: always
+  #   network_mode: "host"
